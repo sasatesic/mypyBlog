@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="border p-5">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="mb-4 border-bottom">Pridruzite Nam Se Danas!</legend>
+                <br>
+                <div class="form-group h5 {{ 'has-danger' if form.korisnicko_ime.errors }}">
+                    {{ form.korisnicko_ime.label(class="form-control-label") }}
+
+                    {% if form.korisnicko_ime.errors %}
+                        {{ form.korisnicko_ime(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {%for errors in form.korisnicko_ime.errors%}
+                                <span>{{ errors }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.korisnicko_ime(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group h5 {{ 'has-danger' if form.email.errors }}">
+                    {{ form.email.label(class="form-control-label") }}
+
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {%for errors in form.email.errors%}
+                                <span>{{ errors }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group h5 {{ 'has-danger' if form.password.errors }}">
+                    {{ form.password.label(class="form-control-label") }}
+
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {%for errors in form.password.errors%}
+                                <span>{{ errors }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group h5 {{ 'has-danger' if form.confirm_password.errors }}">
+                    {{ form.confirm_password.label(class="form-control-label") }}
+
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for errors in form.confirm_password.errors %}
+                                <span>{{ errors }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.confirm_password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group border-bottom pb-3">
+                {{ form.submit(class="btn btn-success") }}
+            </div>
+        </form>
+        <div class="pt-3">
+        <small class="text-muted h5">
+            Imate nalog? <a href="{{ url_for('korisnici.login') }}" class="ml-2">Ulogujte se</a>
+        </small>
+        </div>
+    </div>
+{% endblock content %}

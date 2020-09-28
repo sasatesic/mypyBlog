@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="border p-5">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="mb-4 border-bottom">{{ legend }}!</legend>
+                <br>
+                <div class="form-group h5 {{ 'has-danger' if form.naslov.errors }}">
+                    {{ form.naslov.label(class="form-control-label") }}
+
+                    {% if form.naslov.errors %}
+                        {{ form.naslov(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {%for errors in form.naslov.errors%}
+                                <span>{{ errors }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.naslov(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group h5 {{ 'has-danger' if form.sadrzaj.errors }}">
+                    {{ form.sadrzaj.label(class="form-control-label") }}
+
+                    {% if form.sadrzaj.errors %}
+                        {{ form.sadrzaj(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {%for errors in form.sadrzaj.errors%}
+                                <span>{{ errors }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.sadrzaj(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary form-control") }}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    </div>
+{% endblock content %}

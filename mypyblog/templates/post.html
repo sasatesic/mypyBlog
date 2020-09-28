@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="col-md-10 mb-5 border-secondary p-3">
+         <h1 class="article-title text-primary">{{ post.naslov }}</h1>
+         <img src="{{ url_for('static', filename='profilne_slike/' + post.author.slika_fajl) }}" alt="post img" class="rounded-circle article-img m-3">
+         <a class="mr-2 h4" href="{{ url_for('korisnici.postovi_korisnika', korisnicko_ime=post.author.korisnicko_ime) }}">{{ post.author.korisnicko_ime }}</a>
+         <small class="text-muted">{{ post.datum_posta.strftime('%d/%m/%Y, %H:%M:%S') }}</small>
+        {% if post.author == current_user %}
+            <a class="btn btn-outline-primary btn-sm m-3" href="{{ url_for('postovi.azuriraj_post', post_id=post.id ) }}">Azuriraj Post</a>
+        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#exampleModal">Obrisi Post</button>
+
+        <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Brisanje Posta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Da li ste sigurni da zelite da obrisete ovaj post?</p>
+              </div>
+              <div class="modal-footer">
+                  <form action="{{ url_for('postovi.obrisi_post', post_id=post.id) }}" method="POST">
+                      <input type="submit" class="btn btn-danger" value="Obrisi">
+                  </form>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+         <article class="border-top pt-3 lead"><p>{{ post.sadrzaj }}</p></article>
+     </div>
+{% endblock content %}

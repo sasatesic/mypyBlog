@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for post in posts.items %}
+         <div class="col-md-10 mb-5 border p-3">
+             <h3 class="article-title border-bottom pb-2"><a href="{{ url_for('postovi.post', post_id=post.id) }}">{{ post.naslov }}</a></h3>
+             <img src="{{ url_for('static', filename='profilne_slike/' + post.author.slika_fajl) }}" alt="post img" class="rounded-circle article-img m-3">
+
+             <a class="mr-2 h4" href="{{ url_for('korisnici.postovi_korisnika', korisnicko_ime=post.author.korisnicko_ime) }}">{{ post.author.korisnicko_ime }}</a>
+             <small class="text-muted">{{ post.datum_posta.strftime('%d/%m/%Y, %H:%M:%S') }}</small>
+             <article class="border-top pt-3 lead"><p>{{ post.sadrzaj }}</p></article>
+         </div>
+    {% endfor %}
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if posts.page == page_num %}
+                <a class="btn btn-primary mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-primary mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+            {%endif%}
+        {%else%}
+            ...
+        {%endif%}
+    {% endfor %}
+{% endblock content %}
